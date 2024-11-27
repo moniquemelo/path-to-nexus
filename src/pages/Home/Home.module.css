@@ -1,0 +1,229 @@
+.services {
+  background-color: var(--primary-main);;
+}
+
+.banner,
+.servicesInner {
+  display: flex;
+  max-width: calc(100% - 600px);
+  padding: 120px 0;
+  margin: 0 auto;
+  gap: 160px;
+}
+
+.bannerText,
+.servicesText {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.bannerTitle {
+  color: var(--white-main);
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.bannerTitleHighlighted{
+  color: var(--bannerTitle-Highlighted);
+}
+
+.servicesTitle {
+  color: var(--white-main);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.bannerSubtitle,
+.servicesSubtitle {
+  color: var(--white-main);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+.button {
+  color: var(--white-main);
+  width: 150px;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--primary-main-hover);
+}
+
+.gridCoachings {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-width: calc(100% - 600px);
+  margin: 0 auto;
+  gap: 50px;
+  padding: 120px 0;
+}
+
+.gridTitle {
+  color: var(--white-main);
+  font-size: 35px;
+  padding: 30px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.gridCards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 50px;
+  width: 100%;
+}
+
+.card {
+  padding: 20px;
+  background-color: #262626;
+  border: 1px solid #262626;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 0;
+}
+
+.cardTitle {
+  color: var(--white-main);
+  font-size: 20px;
+  text-align: left;
+}
+
+.cardSubtitle {
+  color: var(--white-main);
+  font-size: 16px;
+  text-align: left;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #9E2B25;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #e03b46;
+}
+
+.articleList {
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100% - 600px);
+  margin: 100px auto;
+  gap: 30px;
+}
+
+.articleListTitle {
+  color: var(--white-main);
+  font-size: 35px;
+  text-align: center;
+  padding: 30px 0;
+}
+
+.article {
+  border: 1px solid var(--white-main);
+  border-radius: 15px;
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article:hover {
+  transform: translateY(-4px);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white-main);
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 16px;
+  color: #cdcdcd;
+  line-height: 150%;
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+}
+
+.imageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.5s ease;
+  border-radius: 4px;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 10px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.navButton:hover {
+  color: #007bff;
+}
+
+.navButton:focus {
+  outline: none;
+}
+
+.forumAndWorkshops {
+  max-width: calc(100% - 600px);
+  margin: 100px auto;
+}
+
+.forumAndWorkshopsTitle{
+  color: var(--white-main);
+  font-size: 35px;
+  text-align: center;
+  padding: 30px 0;
+}
+
+.forumAndWorkshopsImages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 200px;
+}

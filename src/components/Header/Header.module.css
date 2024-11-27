@@ -1,0 +1,48 @@
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 0;
+  max-width: calc(100% - 600px);
+  margin: 0 auto;
+}
+
+.companyName {
+  color: var(--white-main);
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.menuItem {
+  color: var(--white-main);
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  color: var(--primary-main);
+}
+
+.button {
+  color: var(--white-main);
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: var(--primary-main);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--primary-main-hover);
+}

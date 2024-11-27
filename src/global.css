@@ -1,0 +1,45 @@
+:root {
+  --background-main: linear-gradient(
+        to bottom right,
+        var(--secondary-main) 0%,
+        #1d1d1d 50%
+      )
+      bottom right / 50.1% 50.1% no-repeat,
+    linear-gradient(to bottom left, var(--secondary-main) 0%, #1d1d1d 50%)
+      bottom left / 50.1% 50.1% no-repeat,
+    linear-gradient(to top left, var(--secondary-main) 0%, #1d1d1d 50%) top left /
+      50.1% 50.1% no-repeat,
+    linear-gradient(to top right, var(--secondary-main) 0%, #1d1d1d 50%) top
+      right / 50.1% 50.1% no-repeat;
+
+  --background-fallback: linear-gradient(
+    to bottom right,
+    var(--secondary-main),
+    #1d1d1d
+  );
+
+  --primary-main: #9e2b25;
+  --secondary-main: #2d3142;
+  --bannerTitle-Highlighted: #fc4754;
+  --background-login: #133c6c;
+  --black-main: #1d1d1d;
+  --white-main: #ffffff;
+
+  --primary-main-hover: #e03b46;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", "sans-serif";
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  background: var(--background-main);
+  background-color: var(--background-fallback);
+}
