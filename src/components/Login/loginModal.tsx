@@ -1,97 +1,68 @@
-import { AuthError } from '@supabase/supabase-js';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-import { IoCloseCircleSharp } from 'react-icons/io5';
 import { supabase } from '../../supabaseClient';
 import styles from './LoginModal.module.css';
 
 interface LoginModalProps {
-  onClose: () => void;
+  closeModal: () => void;
 }
 
-export default function LoginModal({ onClose }: LoginModalProps) {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [isLogin, setIsLogin] = useState<boolean>(true); 
-  const [message, setMessage] = useState<string>('');
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+export default function LoginModal({ closeModal }: LoginModalProps) {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
     try {
-      if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        setMessage('Login realizado com sucesso!');
-        setTimeout(() => onClose(), 2000);
-      } else {
-        const { error } = await supabase.auth.signUp({ email, password });
-        if (error) throw error;
-        setMessage('Cadastro realizado com sucesso! Você já pode clicar em "Faça login" para acessar sua conta.');
-      }
-    } catch (error) {
-      const supabaseError = error as AuthError; 
-      setMessage(supabaseError.message || 'Ocorreu um erro inesperado.');
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password: senha,
+      });
+  
+      if (error) throw error;
+  
+      alert('Login realizado com sucesso!');
+      closeModal();
+    } catch (error: any) {
+      console.error('Erro ao fazer login:', error.message);
+      setErrorMessage('Erro ao fazer login. Verifique suas credenciais.');
     }
   };
   
+
   return (
-    <div className={styles.modalOverlay}>
+    <div className={styles.overlay}>
       <div className={styles.modal}>
-        <button className={styles.closeButton} onClick={onClose}>
-          <IoCloseCircleSharp size={40}/>
+        <button onClick={closeModal} className={styles.closeButton}>
+          &times;
         </button>
-        <h2 className={styles.titleModal}>{isLogin ? 'Login' : 'Cadastro'}</h2>
-        {message && <p>{message}</p>}
-        <form className={styles.form}onSubmit={handleSubmit}>
-          <div>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder='Email'
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder='Senha'
-              required
-            />
-          </div>
-          <button className={styles.submitButton} type="submit">{isLogin ? 'Entrar' : 'Cadastrar'}</button>
+        <h2 className={styles.title}>Login</h2>
+        <form onSubmit={handleLogin} className={styles.form}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={styles.input}
+            required
+          />
+          <input
+            type="password"
+            name="senha"
+            placeholder="Senha"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            className={styles.input}
+            required
+          />
+          {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+          <button type="submit" className={styles.submitButton}>
+            Entrar
+          </button>
         </form>
-        <p className={styles.hasAccount}>
-          {isLogin ? (
-            <>
-              Não possui conta?{' '}
-              <span
-                className={styles.switchMode}
-                onClick={() => {
-                  setMessage('');
-                  setIsLogin(false);
-                }}
-              >
-                Cadastre-se
-              </span>
-            </>
-          ) : (
-            <>
-              Já possui uma conta?{' '}
-              <span
-                className={styles.switchMode}
-                onClick={() => {
-                  setMessage('');
-                  setIsLogin(true);
-                }}
-              >
-                Faça login
-              </span>
-            </>
-          )}
-        </p>
       </div>
     </div>
   );

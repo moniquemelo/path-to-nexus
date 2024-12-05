@@ -1,17 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import bannerImage from '../../assets/banner.png';
-import coaching from '../../assets/coaching.jpg';
-import styles from './Home.module.css';
+import CatDefault from '../../assets/coaching.jpg';
 import LoginModal from '../../components/Login/loginModal';
+import { supabase } from '../../supabaseClient'; 
+import styles from './Home.module.css';
+
+interface Coaching {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  main_role: string;
+  secondary_role: string;
+  user_id: string;
+  image_url?: string;
+}
 
 export default function Home() {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [coachings, setCoachings] = useState<Coaching[]>([]);
   const navigate = useNavigate(); 
-
-  const handleCadastreSeClick = () => {
-    navigate('/cadastro-coaching'); 
-  };
 
   const articles = [
     {
@@ -27,6 +36,43 @@ export default function Home() {
       description: 'A Riot Games anunciou uma atualização significativa em seus Termos de Serviço, que entrará em vigor no dia 1º de dezembro...',
     },
   ];
+
+  const handleCadastreSeClick = () => {
+    navigate('/cadastro-coaching'); 
+  };
+
+  useEffect(() => {
+    const fetchCoachings = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('announcements')
+          .select('id, title, description, price, main_role, secondary_role, user_id, image_url')
+          .eq('status', 'ativo')
+          .limit(8); 
+
+        if (error) {
+          console.error('Erro ao buscar coachings:', error.message);
+          return;
+        }
+
+        const coachingsWithDetails = data.map((coaching: any) => ({
+          ...coaching,
+          username: 'Usuário', 
+          image_url: coaching.image_url || CatDefault 
+        }));
+
+        setCoachings(coachingsWithDetails);
+      } catch (err) {
+        console.error('Erro ao buscar coachings:', err);
+      }
+    };
+
+    fetchCoachings();
+  }, []); 
+
+  const handleViewMore = () => {
+    navigate('/coachings');
+  };
 
   return (
     <main>
@@ -48,7 +94,6 @@ export default function Home() {
 
       {showModal && <LoginModal onClose={() => setShowModal(false)} />}
 
-      
       <section className={styles.services}>
         <div className={styles.servicesInner}>
           <img src={bannerImage} alt="" />
@@ -65,17 +110,18 @@ export default function Home() {
       <section className={styles.gridCoachings}>
         <h1 className={styles.gridTitle}>Encontre o coaching perfeito!</h1>
         <div className={styles.gridCards}>
-          {Array.from({ length: 8 }).map((_, index) => (
+          {coachings.map((coaching, index) => (
             <div key={index} className={styles.card}>
-              <img width={200} src={coaching} alt="" />
+              <img width={200} src={coaching.image_url || CatDefault} alt={coaching.title} />
               <div className={styles.cardText}>
-                <h2 className={styles.cardTitle}>Monique Melo</h2>
-                <p className={styles.cardSubtitle}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto animi porro consectetur dolorem sunt nihil.</p>
+                <h2 className={styles.cardTitle}>{coaching.title}</h2>
+                <p className={styles.cardSubtitle}>{coaching.description}</p>
+                <p className={styles.cardPrice}>R$ {coaching.price.toFixed(2)}/hora</p>
               </div>
             </div>
           ))}
         </div>
-        <button className={styles.button}>Ver Mais</button>
+        <button className={styles.button} onClick={handleViewMore}>Ver Mais</button>
       </section>
 
       <section>
@@ -89,16 +135,10 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      <section>
-        <div className={styles.forumAndWorkshops}>
-          <h1 className={styles.forumAndWorkshopsTitle}>Acesse o nosso fórum e workshop gratuitamente!</h1> 
-          <div className={styles.forumAndWorkshopsImages}>
-            <img width={400} height={400} src={coaching} alt="" />
-            <img width={400} height={400} src={bannerImage} alt="" />        
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
+
+
+
+

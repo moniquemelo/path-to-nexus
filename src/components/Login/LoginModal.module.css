@@ -1,4 +1,4 @@
-.modalOverlay {
+/* .modalOverlay {
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(2px);
   position: fixed;
@@ -81,4 +81,75 @@ input {
 .hasAccount {
   color: var(--white-main);
   margin: 30px 0;
+} */
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #1d1d1d;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  color: var(--white-main);
+  text-align: center;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--white-main);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #262626;
+  border: 2px solid var(--primary-main);
+  border-radius: 5px;
+  color: var(--white-main);
+}
+
+.submitButton {
+  padding: 10px;
+  font-size: 18px;
+  background-color: var(--bannerTitle-Highlighted);
+  border: none;
+  border-radius: 5px;
+  color: var(--white-main);
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
 }

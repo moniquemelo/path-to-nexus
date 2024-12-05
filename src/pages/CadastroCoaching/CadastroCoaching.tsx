@@ -14,112 +14,80 @@ export default function CadastroCoaching() {
     tituloDoAnuncio: '',
     descricaoMetodologia: '',
     precoHora: '',
-    aulaGratuita: false,
+    aulaGratuita: false, 
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value, type } = e.target;
+    if (type === 'checkbox') {
+      const { checked } = e.target as HTMLInputElement;
+      setForm((prev) => ({
+        ...prev,
+        [name]: checked,
+      }));
+    } else {
+      setForm((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { username, email, senha } = form;
-    const { data: userData, error: userError } = await supabase
-      .from('users')
-      .insert([
-        {
-          username,
-          email,
-          password: senha,
-          role: isCoaching ? 'coach' : 'aluno',
-        },
-      ])
-      .select()
-      .single();
-      
-    if (userError) {
-      console.error('Erro ao cadastrar usuário:', userError.message);
+    const { username, email, senha, aulaGratuita } = form;  
+    const { data, error } = await supabase.auth.signUp({ email, password: senha });
+    
+    if (error) {
+      console.error('Erro ao cadastrar usuário no Auth:', error.message);
+      alert('Erro no cadastro. Tente novamente.');
+      return;
+    }
+
+    const userId = data.user?.id;
+
+    const { error: dbError } = await supabase.from('users').insert([
+      {
+        id: userId,
+        username,
+        email,
+        role: isCoaching ? 'coach' : 'aluno',
+      },
+    ]);
+
+    if (dbError) {
+      console.error('Erro ao salvar no banco:', dbError.message);
+      alert('Erro ao salvar dados adicionais. Tente novamente.');
       return;
     }
 
     if (isCoaching) {
-      const {
-        rotaMain,
-        rotaSecundaria,
-        melhoresCampeoes,
-        tituloDoAnuncio,
-        descricaoMetodologia,
-        precoHora,
-        aulaGratuita,
-      } = form;
-
-      const mainRolesValidos = ['top', 'jungle', 'mid', 'atirador', 'suporte'];
-
-      if (!mainRolesValidos.includes(rotaMain)) {
-        alert('Por favor, selecione uma Main Role válida.');
-        return;
-      }
-
-      // console.log('Preparando dados para anúncios:', {
-      //   user_id: userData.id,
-      //   main_role: rotaMain,
-      //   secondary_role: rotaSecundaria || null,
-      //   title: tituloDoAnuncio,
-      //   best_champions_role: melhoresCampeoes.split(',').map((champ) => champ.trim()),
-      //   description: descricaoMetodologia,
-      //   price: parseFloat(precoHora),
-      //   average_rating: null,
-      //   score: 0,
-      //   dt_approval: aulaGratuita ? new Date().toISOString() : null,
-      //   status: 'ativo',
-      // });
-      
-      const { error: announcementError } = await supabase
-      .from('announcements')
-      .insert([
+      const { rotaMain, rotaSecundaria, melhoresCampeoes, tituloDoAnuncio, descricaoMetodologia, precoHora } = form;
+      const { error: announcementError } = await supabase.from('announcements').insert([
         {
-          user_id: userData.id, 
+          user_id: userId,
           main_role: rotaMain,
           secondary_role: rotaSecundaria || null,
           title: tituloDoAnuncio,
-          best_champions_role: melhoresCampeoes.split(',').map((champ) => champ.trim()), 
+          best_champions_role: melhoresCampeoes.split(',').map(champ => champ.trim()),
           description: descricaoMetodologia,
           price: parseFloat(precoHora),
-          average_rating: null, 
-          score: 0, 
-          dt_approval: aulaGratuita ? new Date().toISOString() : null, 
-          status: 'ativo',
+          status: 'pendente',
+          dt_create: new Date().toISOString(),
+          first_class_free: aulaGratuita,
         },
       ]);
 
       if (announcementError) {
-        console.error('Erro ao cadastrar anúncio:', announcementError.message);
+        console.error('Erro ao criar anúncio:', announcementError.message);
+        alert('Erro ao salvar anúncio. Tente novamente.');
         return;
       }
     }
 
     alert('Cadastro realizado com sucesso!');
-    resetForm();
-  };
-
-  const resetForm = () => {
-    setForm({
-      username: '',
-      email: '',
-      senha: '',
-      rotaMain: '',
-      rotaSecundaria: '',
-      melhoresCampeoes: '',
-      tituloDoAnuncio: '',
-      descricaoMetodologia: '',
-      precoHora: '',
-      aulaGratuita: false,
-    });
-    setIsCoaching(false);
   };
 
   return (
@@ -250,3 +218,4 @@ export default function CadastroCoaching() {
     </div>
   );
 }
+
