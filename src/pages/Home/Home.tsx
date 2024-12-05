@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import bannerImage from '../../assets/banner.png';
 import CatDefault from '../../assets/coaching.jpg';
-import LoginModal from '../../components/Login/loginModal';
+// import LoginModal from '../../components/Login/loginModal';
 import { supabase } from '../../supabaseClient'; 
 import styles from './Home.module.css';
 
@@ -18,7 +19,7 @@ interface Coaching {
 }
 
 export default function Home() {
-  const [showModal, setShowModal] = useState<boolean>(false);
+  // const [showModal, setShowModal] = useState<boolean>(false);
   const [coachings, setCoachings] = useState<Coaching[]>([]);
   const navigate = useNavigate(); 
 
@@ -92,7 +93,7 @@ export default function Home() {
         <img src={bannerImage} alt="Banner principal" />
       </section>
 
-      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
+      {/* {showModal && <LoginModal onClose={() => setShowModal(false)} />} */}
 
       <section className={styles.services}>
         <div className={styles.servicesInner}>

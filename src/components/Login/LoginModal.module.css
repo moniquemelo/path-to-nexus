@@ -1,4 +1,4 @@
-/* .modalOverlay {
+.modalOverlay {
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(2px);
   position: fixed;
@@ -81,7 +81,7 @@ input {
 .hasAccount {
   color: var(--white-main);
   margin: 30px 0;
-} */
+}
 
 
 .overlay {
@@ -106,17 +106,6 @@ input {
   max-width: 400px;
   color: var(--white-main);
   text-align: center;
-}
-
-.closeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  color: var(--white-main);
-  font-size: 20px;
-  cursor: pointer;
 }
 
 .title {
@@ -152,4 +141,19 @@ input {
 .error {
   color: red;
   font-size: 14px;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: var(--primary-main);
+}
+
+.closeButton:hover {
+  color: var(--primary-main-hover);
 }

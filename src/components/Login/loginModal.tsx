@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import styles from './LoginModal.module.css';
+import { IoCloseCircleSharp } from 'react-icons/io5';
 
 interface LoginModalProps {
   closeModal: () => void;
@@ -33,12 +34,15 @@ export default function LoginModal({ closeModal }: LoginModalProps) {
   
 
   return (
-    <div className={styles.overlay}>
+    <div className={styles.modalOverlay}>
       <div className={styles.modal}>
         <button onClick={closeModal} className={styles.closeButton}>
-          &times;
+          <IoCloseCircleSharp size={40}/>
         </button>
         <h2 className={styles.title}>Login</h2>
+        <button onClick={closeModal} className={styles.closeButton}>
+          <IoCloseCircleSharp size={40}/>
+        </button>
         <form onSubmit={handleLogin} className={styles.form}>
           <input
             type="email"
