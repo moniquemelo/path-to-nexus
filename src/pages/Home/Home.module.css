@@ -1,5 +1,5 @@
 .services {
-  background-color: var(--primary-main);;
+  background-color: var(--primary-main);
 }
 
 .banner,
@@ -24,7 +24,7 @@
   font-weight: 700;
 }
 
-.bannerTitleHighlighted{
+.bannerTitleHighlighted {
   color: var(--bannerTitle-Highlighted);
 }
 
@@ -83,6 +83,7 @@
 }
 
 .card {
+  width: 100%;
   padding: 20px;
   background-color: #262626;
   border: 1px solid #262626;
@@ -91,6 +92,7 @@
 }
 
 .cardText {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -101,17 +103,24 @@
   color: var(--white-main);
   font-size: 20px;
   text-align: left;
+  text-align: left;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 
 .cardSubtitle {
   color: var(--white-main);
   font-size: 16px;
   text-align: left;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
 }
 
 .button {
   padding: 10px 20px;
-  background-color: #9E2B25;
+  background-color: #9e2b25;
   color: white;
   font-size: 16px;
   border: none;
@@ -214,7 +223,7 @@
   margin: 100px auto;
 }
 
-.forumAndWorkshopsTitle{
+.forumAndWorkshopsTitle {
   color: var(--white-main);
   font-size: 35px;
   text-align: center;
@@ -227,12 +236,6 @@
   justify-content: center;
   gap: 200px;
 }
-
-
-
-
-
-
 
 .gridCards {
   display: grid;
@@ -298,7 +301,6 @@
   font-size: 1.2rem;
   color: #555;
 }
-
 
 .ratingContainer {
   display: flex;

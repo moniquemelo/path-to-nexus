@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import LoginModal from '../Login/loginModal';
-import { supabase } from '../../supabaseClient';
+import { useEffect, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { supabase } from '../../supabaseClient';
 import styles from '../Header/Header.module.css';
+import LoginModal from '../Login/loginModal';
 
 export default function Header() {
+  const navigate = useNavigate();
+  
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [user, setUser] = useState<any>(null); 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -18,7 +20,8 @@ export default function Header() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setUser(null);  
-    setDropdownOpen(false);  
+    setDropdownOpen(false); 
+    navigate('/'); 
   };
 
   useEffect(() => {

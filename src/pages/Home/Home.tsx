@@ -91,6 +91,7 @@ export default function Home() {
           </button>
         </div>
         <img src={bannerImage} alt="Banner principal" />
+        
       </section>
 
       {/* {showModal && <LoginModal onClose={() => setShowModal(false)} />} */}
@@ -118,7 +119,7 @@ export default function Home() {
                 <h2 className={styles.cardTitle}>{coaching.title}</h2>
                 <p className={styles.cardSubtitle}>{coaching.description}</p>
                 <p className={styles.cardPrice}>R$ {coaching.price.toFixed(2)}/hora</p>
-              </div>
+              </div>  
             </div>
           ))}
         </div>
