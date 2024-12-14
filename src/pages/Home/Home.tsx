@@ -15,28 +15,16 @@ interface Coaching {
   price: number;
   main_role: string;
   secondary_role: string;
-  user_id: string;
-  image_url?: string;
+  username: string;
+  profile_image_url?: string;
+  averageRating?: number;
+  ratingCount?: number;
+  first_class_free: boolean;
 }
 
 export default function Home() {
   const [coachings, setCoachings] = useState<Coaching[]>([]);
   const navigate = useNavigate(); 
-
-  const articles = [
-    {
-      title: 'Liga das Américas 2025: Isurus Estral quer top ex-LCK e LPL, diz jornalista',
-      description: 'A Isurus Estral, equipe da LTA Sul, está em negociações avançadas com o jogador sul-coreano Burdol...',
-    },
-    {
-      title: 'Arcane: Campeões do LoL que aparecem na 2° temporada',
-      description: 'A aguardada segunda temporada de Arcane, baseada no universo de League of Legends, trouxe diversos campeões...',
-    },
-    {
-      title: 'LoL: Riot passará a banir jogadores por mau comportamento em streams',
-      description: 'A Riot Games anunciou uma atualização significativa em seus Termos de Serviço, que entrará em vigor no dia 1º de dezembro...',
-    },
-  ];
 
   const handleCadastreSeClick = () => {
     navigate('/cadastro-coaching'); 
@@ -124,7 +112,7 @@ export default function Home() {
             title={coaching.title}
             description={coaching.description}
             price={coaching.price}
-            image_url={coaching.profile_image_url}
+            image_url={coaching.profile_image_url || '../../assets/profile.png'}
             mainRole={coaching.main_role}
             secondaryRole={coaching.secondary_role}
             username={coaching.username}

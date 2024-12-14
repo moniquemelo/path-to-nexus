@@ -35,7 +35,6 @@ export default function Profile() {
   const navigate = useNavigate();
   const [user, setUser] = useState<UserType | null>(null);
   const [announcement, setAnnouncement] = useState<AnnouncementType | null>(null);
-  const [isCoaching, setIsCoaching] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [uploading, setUploading] = useState(false);
 

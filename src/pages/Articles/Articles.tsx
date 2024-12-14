@@ -160,8 +160,12 @@ export default function Articles() {
           >
             {isSubmitting ? 'Enviando...' : 'Criar Artigo'}
           </button>
+          {successMessage && (
+            <p className={styles.successMessage}>{successMessage}</p>
+          )}
         </form>
       )}
+
 
       <div className={styles.articlesList}>
         <h2 className={styles.articlesSectionTitle}>Artigos</h2>

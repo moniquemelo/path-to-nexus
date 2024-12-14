@@ -1,7 +1,6 @@
 import React from 'react';
-import styles from './CoachingCard.module.css';
 import { FaStar } from 'react-icons/fa';
-import CatDefault from '../../assets/coaching.jpg';
+import styles from './CoachingCard.module.css';
 
 interface CoachingCardProps {
   title: string;
@@ -26,7 +25,10 @@ const CoachingCard: React.FC<CoachingCardProps> = ({
   ratingCount = 0,
 }) => (
   <div className={styles.card}>
-    <img src={image_url || CatDefault} alt={`Imagem do coach ${username}`} className={styles.cardImage} />
+    <img
+      src={image_url || '../../assets/profile.png'} 
+      alt={`Imagem de perfil de ${username}`}
+    />
     <div className={styles.cardInfos}>
       <div className={styles.cardUsernameAndRating}>
         <h2 className={styles.cardTitle}>{username}</h2>

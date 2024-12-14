@@ -56,20 +56,22 @@ export default function Coaching() {
     }));
   };
 
-  const handleChampionSearch = debounce((value) => {
+  const handleChampionSearch = debounce((value: string) => {
     setFilters((prev) => ({
       ...prev,
-      champion: value, 
+      champion: value,
     }));
   }, 300);
+  
 
-  function debounce(func, delay) {
-    let timeoutId;
-    return (...args) => {
+  function debounce(func: (...args: any[]) => void, delay: number) {
+    let timeoutId: NodeJS.Timeout;
+    return (...args: any[]) => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => func(...args), delay);
     };
   }
+  
   
   useEffect(() => {
     const fetchCoachings = async () => {
@@ -119,8 +121,9 @@ export default function Coaching() {
         const coachingsWithDetails = data.map((coaching: any) => ({
           ...coaching,
           username: coaching.users?.username || 'Desconhecido',
-          profile_image_url: coaching.users?.profile_image_url || null,
+          profile_image_url: coaching.users?.profile_image_url || '',
         }));
+        
 
         setCoachings(coachingsWithDetails);
       } catch (err) {
@@ -246,7 +249,7 @@ export default function Coaching() {
               title={coaching.title}
               description={coaching.description}
               price={coaching.price}
-              image_url={coaching.profile_image_url}
+              image_url={coaching.profile_image_url || '../../assets/profile.png'}
               mainRole={coaching.main_role}
               secondaryRole={coaching.secondary_role}
               username={coaching.username}
