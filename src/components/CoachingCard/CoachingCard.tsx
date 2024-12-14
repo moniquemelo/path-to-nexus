@@ -27,7 +27,7 @@ const CoachingCard: React.FC<CoachingCardProps> = ({
   <div className={styles.card}>
     <img
       src={image_url || '../../assets/profile.png'} 
-      alt={`Imagem de perfil de ${username}`}
+      alt={`${username}`}
     />
     <div className={styles.cardInfos}>
       <div className={styles.cardUsernameAndRating}>
