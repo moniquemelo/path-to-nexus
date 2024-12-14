@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { supabase } from '../../supabaseClient';
@@ -5,7 +6,7 @@ import styles from './CadastroCoaching.module.css';
 
 export default function CadastroCoaching() {
   const navigate = useNavigate(); 
-  const [isCoaching, setIsCoaching] = useState(false);
+  const [isCoaching] = useState(false);
   const [form, setForm] = useState({
     username: '',
     email: '',
