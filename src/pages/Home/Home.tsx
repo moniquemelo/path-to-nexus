@@ -7,6 +7,7 @@ import { FaCheck } from "react-icons/fa";
 import CoachingCard from '../../components/CoachingCard/CoachingCard';
 import { supabase } from '../../supabaseClient';
 import styles from './Home.module.css';
+import defaultProfileImage from '../../assets/profile.png';
 
 interface Coaching {
   id: string;
@@ -56,8 +57,9 @@ export default function Home() {
       const coachingsWithDetails = data.map((coaching: any) => ({
         ...coaching,
         username: coaching.users?.username || 'Desconhecido',
-        profile_image_url: coaching.users?.profile_image_url || null,
+        profile_image_url: coaching.users?.profile_image_url || defaultProfileImage
       }));
+      
     
       setCoachings(coachingsWithDetails);
     };
