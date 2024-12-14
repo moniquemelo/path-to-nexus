@@ -18,8 +18,7 @@ export default function Forum(){
             </ul>
           </div>
 
-          {/* Aqui vai ter as propriedades: avatar, usuario, tempo publicacao, titulo e imagem, se houver */}
-          <div className={styles.forumPosts}>
+          {/* <div className={styles.forumPosts}>
             <ul className={styles.forumPostsList}>
               <li className={styles.forumPostsItem}>Post1</li>
               <li className={styles.forumPostsItem}>Post1</li>
@@ -29,7 +28,7 @@ export default function Forum(){
               <li className={styles.forumPostsItem}>Post1</li>
               <li className={styles.forumPostsItem}>Post1</li>
             </ul>
-          </div>
+          </div> */}
         </div>
       </div>
     </section> 

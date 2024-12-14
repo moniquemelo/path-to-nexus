@@ -1,12 +1,11 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Header/Header'
-import Home from './pages/Home/Home';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Header from './components/Header/Header';
+import Articles from './pages/Articles/Articles';
+import CadastroCoaching from './pages/CadastroCoaching/CadastroCoaching';
 import Coaching from './pages/Coaching/Coaching';
 import Forum from './pages/Forum/Forum';
-import CadastroCoaching from './pages/CadastroCoaching/CadastroCoaching';
+import Home from './pages/Home/Home';
 import Profile from './pages/Profile/Profile';
-
-// import LoginModal from './components/Login/loginModal';
 
 
 export default function App() {
@@ -17,7 +16,7 @@ export default function App() {
         <Route path="/" element={<Home />} />  
         <Route path="/coachings" element={<Coaching />} />
         <Route path="/forum" element={<Forum />} />
-        {/* <Route path="/login" element={<LoginModal />} /> */}
+        <Route path="/artigos" element={<Articles />} />
         <Route path="/cadastro-coaching" element={<CadastroCoaching />} />
         <Route path="/perfil" element={<Profile />} />
       </Routes>

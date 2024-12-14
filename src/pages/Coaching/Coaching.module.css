@@ -1,183 +1,270 @@
 .gridCoachings {
   max-width: calc(100% - 600px);
-  margin: 0 auto;
-}
-
-.gridTitle {
-  font-size: 2rem;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.filtersContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.filter {
-  display: flex;
-  flex-direction: column;
-  min-width: 200px;
-  max-width: 250px;
-  gap: 5px;
-}
-
-.filter label {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.filter select,
-.filter input {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
-  background-color: #fff;
+  margin: 100px auto;
 }
 
 .gridCards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* 250 */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-top: 20px;
   gap: 20px;
-  justify-items: center;
+}
+
+.gridTitle {
+  font-size: 40px;
+  color: var(--white-main);
+  text-align: center;
+  padding: 50px;
 }
 
 .card {
-  background-color: #262626;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  text-align: center;
-  width: 100%;
   max-width: 300px;
+  width: 100%;
+  text-align: center;
+}
+
+.NotFoundCoaching{
+  color: var(--white-main);
+}
+
+.filtersContainer {
   display: flex;
   flex-direction: column;
+  gap: 50px;
+  padding: 50px;
+  background-color: #1d1d1d;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 50px;
+}
+
+.filtersHeader {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--white-main);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.inlineFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 100px;
+  width: 100%;
   align-items: center;
 }
 
-.card:hover {
-  transform: translateY(-10px);
+.filterItem {
+  flex: 1;
+  min-width: 180px; 
 }
 
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-.cardInfos {
+.filterItem label {
+  font-size: 16px;
+  color: var(--white-main);
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
   display: flex;
-  flex-direction: column;
+}
+
+.filterItem select,
+.filterItem input[type="range"],
+.filterItem input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #262626;
+  border: 2px solid var(--primary-main);
+  border-radius: 5px;
+  color: #ffffff;
+  transition: border-color 0.3s;
+}
+
+.filterItem select:focus,
+.filterItem input[type="range"]:focus,
+.filterItem input[type="text"]:focus {
+  border-color: var(--bannerTitle-Highlighted);
+  outline: none;
+}
+
+.searchChampions input::placeholder {
+  color: #757575;
+}
+
+.checkboxWrapper {
+  display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.cardTitle {
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
-}
-
-.cardSubtitle {
-  font-size: 1rem;
-  color: #666;
-  margin: 0;
-}
-
-.cardPrice {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #007bff;
-}
-
-.loading,
-.noCoachings {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #555;
-}
-
-.button {
-  display: block;
-  width: 100%;
-  max-width: 200px;
-  margin: 40px auto;
-  padding: 15px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
+.checkboxWrapper input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid var(--primary-main);
+  background-color: transparent;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
-.button:hover {
-  background-color: #0056b3;
-}
-
-.ratingContainer {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.rating {
-  font-size: 14px;
-  color: #ffcc00;
-  font-weight: 600;
-}
-
-.cardUsernameAndRating {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
-.bestRoles {
-  display: flex;
-  gap: 12px;
-  padding: 8px;
-}
-
-.cardMainRole {
+.checkboxWrapper input:checked {
   background-color: var(--primary-main);
-  font-size: 12px;
-  padding: 8px;
-  border-radius: 4px;
-  color: white;
 }
 
-.cardSecondaryRole {
-  background-color: var(--secondary-main);
-  font-size: 12px;
-  padding: 8px;
-  border-radius: 4px;
-  color: white;
+.checkboxWrapper input:checked::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  display: block;
+  margin: auto;
+  border-radius: 2px;
 }
 
+.rangeWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+}
 
+.rangeValues {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 14px;
+  color: var(--white-main);
+}
 
+.rangeWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
 
+.rangeWrapper label {
+  font-size: 16px;
+  color: var(--white-main);
+  font-weight: bold;
+  margin-bottom: 5px;
+}
 
+.rangeInput {
+  position: relative;
+  width: 100%;
+}
 
+.rangeInput input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--primary-main);
+  border-radius: 5px;
+  outline: none;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
 
+.rangeInput input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--bannerTitle-Highlighted);
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
 
+.rangeInput input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2); 
+}
 
+.rangeInput input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--bannerTitle-Highlighted);
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
+.rangeInput input[type="range"]::-ms-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--bannerTitle-Highlighted);
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
+.rangeValues {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--white-main);
+  margin-top: 10px;
+}
 
+.rangeValues span {
+  padding: 5px 10px;
+  background-color: #262626;
+  border-radius: 5px;
+  border: 1px solid var(--primary-main);
+  font-weight: bold;
+}
 
+.priceIndicator {
+  position: absolute;
+  top: -30px; 
+  transform: translateX(-50%);
+  background-color: var(--primary-main);
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  transition: left 0.1s ease-in-out;
+  pointer-events: none; 
+}
 
+.rangeInput {
+  position: relative;
+  width: 100%;
+}
 
+.rangeInput input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--primary-main);
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+.rangeInput input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--bannerTitle-Highlighted);
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.rangeInput input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--bannerTitle-Highlighted);
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+}

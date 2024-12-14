@@ -1,299 +1,180 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
 .profileContainer {
   display: flex;
   flex-direction: column;
-  max-width: calc(100% - 600px);
+  background: #101010;
+  max-width: calc(100% - 1000px);
   margin: 0 auto;
-}
-
-.teste {
-  display: flex;
-  gap: 24px;
+  border-radius: 25px;
 }
 
 .profileInfoContainer {
-  background: #262626;
-  width: 298px;
-  height: 400px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 30px;
-  border-radius: 20px;
   align-items: center;
-  color: var(--white-main);
-  text-align: center;
-}
-
-.profileAccountInfo {
-  background: #262626;
-  width: 100%;
-  display: flex;
-  /* flex-direction: column; */
-  gap: 40px;
-  padding: 30px;
-  border-radius: 20px;
-  color: var(--white-main);
-  justify-content: space-between;
-}
-
-/* .profileDescContainer{
-  background: #262626;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 30px;
-  border-radius: 20px;
-  color: var(--white-main);
-} */
-
-.infoAccountTitle,
-.requestedClassesTitle {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
-.acessDataTitle {
-  font-size: 16px;
-  color: var(--bannerTitle-Highlighted);
-  margin-bottom: 12px;
-}
-
-.changeDataTitle {
-  color: #006db2;
-  cursor: pointer;
-}
-
-.alertDeleteTitle {
-  font-size: 14px;
-}
-
-.loginAndPassword {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.deleteAccountContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 20px;
-}
-
-.btnDeleteAccount {
-  width: 150px;
-  color: var(--white-main);
-  padding: 8px;
-  background-color: var(--primary-main);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.avatarCoaching {
-  width: 48px;
-  border-radius: 50%;
-}
-
-.requestedClassesContainer {
-  display: flex;
-  align-items: center;
-  background: var(--background-login);
-  padding: 8px;
-  border-radius: 4px;
-  gap: 12px;
-  margin-top: 12px;
-}
-
-/* .usernameCoaching{
-
-} */
-
-.sendMessage {
-  color: var(--bannerTitle-Highlighted);
-  font-weight: 700;
-  font-size: 13px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.toggleWrapper {
-  display: flex;
-  align-items: center;
+  justify-content: center;
   gap: 10px;
-  color: var(--white-main);
+  padding: 24px;
 }
 
-.toggleLabel {
-  font-size: 16px;
-}
-
-.switch {
+.imageWrapper {
   position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 140px;
+  height: 140px;
 }
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+.profileImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid #ccc;
 }
 
-.slider {
+.cameraButton {
   position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 50px;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  border-radius: 50px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background-color: #fc4754;
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-
-.profileContainer {
-  display: flex;
-  flex-direction: column;
-  max-width: calc(100% - 600px);
-  margin: 0 auto;
-}
-
-.teste {
-  display: flex;
-  gap: 24px;
-}
-
-.profileInfoContainer {
-  background: #262626;
-  width: 298px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 30px;
-  border-radius: 20px;
-  align-items: center;
-  color: var(--white-main);
-  text-align: center;
+.cameraButton:hover {
+  background-color: #45a049;
 }
 
 .profileAccountInfo {
-  background: #262626;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding: 30px;
-  border-radius: 20px;
+  gap: 10px;
+  align-items: center;
+}
+
+.usernameTitle {
+  font-size: 16px;
   color: var(--white-main);
 }
 
-.newBox {
-  background: #262626;
-  width: 100%;
-  border: 2px solid #000; /* Borda preta */
-  padding: 30px;
-  border-radius: 20px;
-  color: var(--white-main);
-  margin-top: 20px; /* Distância para separação das caixas */
-}
-
-.newBoxTitle {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
-.newBoxContent {
-  font-size: 16px;
-}
-
-.infoAccountTitle,
-.requestedClassesTitle {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
-.acessDataTitle {
-  font-size: 16px;
-  color: var(--bannerTitle-Highlighted);
-  margin-bottom: 12px;
-}
-
-.changeDataTitle {
-  color: #006db2;
-  cursor: pointer;
-}
-
-.alertDeleteTitle {
-  font-size: 14px;
-}
-
-.loginAndPassword {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.deleteAccountContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 20px;
+.infoAccountTitle {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #555;
 }
 
 .btnDeleteAccount {
-  width: 150px;
-  color: var(--white-main);
-  padding: 8px;
-  background-color: var(--primary-main);
+  background-color: #f44336;
+  color: white;
   border: none;
-  border-radius: 4px;
+  padding: 10px 15px;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
 }
 
-.avatarCoaching {
-  width: 48px;
+.btnDeleteAccount:hover {
+  background-color: #d32f2f;
+}
+
+.adInfoContainer {
+  margin-top: 30px;
+  padding: 24px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.adInfoContainer h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #444;
+}
+
+.announcement {
+  font-size: 16px;
+  color: var(--white-main);
+}
+
+.adImage {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto 10px;
+  display: block;
+  border-radius: 8px;
+}
+
+.adInfoContainer p span {
+  font-weight: bold;
+  color: #333;
+}
+
+.cameraButton {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
   border-radius: 50%;
-}
-
-.requestedClassesContainer {
+  padding: 10px;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  background: var(--background-login);
-  padding: 8px;
-  border-radius: 4px;
-  gap: 12px;
-  margin-top: 12px;
+  justify-content: center;
 }
 
-.sendMessage {
-  color: var(--bannerTitle-Highlighted);
-  font-weight: 700;
-  font-size: 13px;
-  cursor: pointer;
-  margin-top: 10px;
+.cameraButton:hover {
+  background-color: #45a049;
+}
+
+.cameraButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.adInfoContainer {
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  color: var(--white-main);
+}
+
+.adInfoContainer h2 {
+  font-size: 24px;
+  color: var(--white-main);
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.announcement {
+  font-size: 1em;
+  color: var(--white-main);
+  margin: 8px 0;
+}
+
+.announcement strong {
+  color: var(--white-main);
+  font-weight: 600;
+}
+
+.announcement:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.announcement p {
+  line-height: 1.5;
 }

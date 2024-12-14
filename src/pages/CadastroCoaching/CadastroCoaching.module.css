@@ -227,3 +227,39 @@ input:checked + .slider:before {
 .championIcon.selected {
   border-color: var(--bannerTitle-Highlighted);
 }
+
+
+
+.passwordWrapper {
+  position: relative;
+}
+
+.eyeButton {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+.errorMessage {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+
+.errorMessage {
+  color: #ff4757;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.successMessage {
+  color: #2ed573;
+  font-size: 14px;
+  margin-top: 5px;
+}

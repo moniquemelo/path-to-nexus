@@ -1,21 +1,27 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import { supabase } from '../../supabaseClient';
 import styles from './CadastroCoaching.module.css';
 
 export default function CadastroCoaching() {
+  const navigate = useNavigate(); 
   const [isCoaching, setIsCoaching] = useState(false);
   const [form, setForm] = useState({
     username: '',
     email: '',
     senha: '',
+    confirmarSenha: '',
     rotaMain: '',
     rotaSecundaria: '',
     melhoresCampeoes: '',
     tituloDoAnuncio: '',
     descricaoMetodologia: '',
     precoHora: '',
-    aulaGratuita: false, 
+    aulaGratuita: false,
   });
+  const [showSenha, setShowSenha] = useState(false); 
+  const [error, setError] = useState(''); 
+  const [success, setSuccess] = useState(''); 
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -33,61 +39,56 @@ export default function CadastroCoaching() {
         [name]: value,
       }));
     }
+    setError(''); 
+    setSuccess(''); 
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { username, email, senha, aulaGratuita } = form;  
-    const { data, error } = await supabase.auth.signUp({ email, password: senha });
-    
-    if (error) {
-      console.error('Erro ao cadastrar usuário no Auth:', error.message);
-      alert('Erro no cadastro. Tente novamente.');
+    if (form.senha !== form.confirmarSenha) {
+      setError('As senhas não coincidem. Por favor, verifique.');
       return;
     }
 
-    const userId = data.user?.id;
+    const { username, email, senha } = form;
 
-    const { error: dbError } = await supabase.from('users').insert([
-      {
-        id: userId,
-        username,
-        email,
-        role: isCoaching ? 'coach' : 'aluno',
-      },
-    ]);
+    try {
+      const { data, error } = await supabase.auth.signUp({ email, password: senha });
 
-    if (dbError) {
-      console.error('Erro ao salvar no banco:', dbError.message);
-      alert('Erro ao salvar dados adicionais. Tente novamente.');
-      return;
-    }
+      if (error) {
+        if (error.message.includes('password')) {
+          setError('A senha é muito fraca. Use pelo menos 6 caracteres.');
+        } else if (error.message.includes('already registered')) {
+          setError('O e-mail já está cadastrado. Tente fazer login ou use outro e-mail.');
+        } else {
+          setError('Ocorreu um erro ao cadastrar. Tente novamente mais tarde.');
+        }
+        return;
+      }
 
-    if (isCoaching) {
-      const { rotaMain, rotaSecundaria, melhoresCampeoes, tituloDoAnuncio, descricaoMetodologia, precoHora } = form;
-      const { error: announcementError } = await supabase.from('announcements').insert([
+      const userId = data.user?.id;
+      const { error: dbError } = await supabase.from('users').insert([
         {
-          user_id: userId,
-          main_role: rotaMain,
-          secondary_role: rotaSecundaria || null,
-          title: tituloDoAnuncio,
-          best_champions_role: melhoresCampeoes.split(',').map(champ => champ.trim()),
-          description: descricaoMetodologia,
-          price: parseFloat(precoHora),
-          status: 'pendente',
-          dt_create: new Date().toISOString(),
-          first_class_free: aulaGratuita,
+          id: userId,
+          username,
+          email,
+          role: isCoaching ? 'coach' : 'aluno',
         },
       ]);
 
-      if (announcementError) {
-        console.error('Erro ao criar anúncio:', announcementError.message);
-        alert('Erro ao salvar anúncio. Tente novamente.');
+      if (dbError) {
+        setError('Erro ao salvar dados no banco. Por favor, tente novamente.');
         return;
       }
-    }
+      setSuccess('Cadastro realizado com sucesso! Verifique seu e-mail para confirmar sua conta.');
 
-    alert('Cadastro realizado com sucesso!');
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    } catch (err) {
+      setError('Erro inesperado. Por favor, tente novamente mais tarde.');
+      console.error(err);
+    }
   };
 
   return (
@@ -112,105 +113,37 @@ export default function CadastroCoaching() {
           className={styles.inputForm}
           required
         />
-        <input
-          type="password"
-          name="senha"
-          placeholder="Senha"
-          value={form.senha}
-          onChange={handleChange}
-          className={styles.inputForm}
-          required
-        />
-        <div className={styles.toggleWrapper}>
-          <span className={styles.toggleLabel}>Quero ser Coaching</span>
-          <label className={styles.switch}>
-            <input
-              type="checkbox"
-              checked={isCoaching}
-              onChange={() => setIsCoaching((prev) => !prev)}
-            />
-            <span className={styles.slider}></span>
-          </label>
+        <div className={styles.passwordWrapper}>
+          <input
+            type={showSenha ? 'text' : 'password'}
+            name="senha"
+            placeholder="Senha"
+            value={form.senha}
+            onChange={handleChange}
+            className={styles.inputForm}
+            required
+          />
+          <button
+            type="button"
+            onClick={() => setShowSenha((prev) => !prev)}
+            className={styles.eyeButton}
+          >
+            {showSenha ? '🙈' : '👁️'}
+          </button>
         </div>
-
-        {isCoaching && (
-          <>
-            <select
-              name="rotaMain"
-              value={form.rotaMain}
-              onChange={handleChange}
-              className={styles.inputSelect}
-              required
-            >
-              <option value="">Selecione sua Main Role</option>
-              <option value="top">Top</option>
-              <option value="jungle">Jungle</option>
-              <option value="mid">Mid</option>
-              <option value="atirador">Atirador</option>
-              <option value="suporte">Suporte</option>
-            </select>
-
-            <select
-              name="rotaSecundaria"
-              value={form.rotaSecundaria}
-              onChange={handleChange}
-              className={styles.inputSelect}
-            >
-              <option value="">Selecione sua Rota Secundária (opcional)</option>
-              <option value="top">Top</option>
-              <option value="jungle">Jungle</option>
-              <option value="mid">Mid</option>
-              <option value="atirador">Atirador</option>
-              <option value="suporte">Suporte</option>
-            </select>
-
-            <textarea
-              name="melhoresCampeoes"
-              placeholder="Melhores Campeões (separados por vírgula)"
-              value={form.melhoresCampeoes}
-              onChange={handleChange}
-              className={styles.textarea}
-            />
-            <input
-              type="text"
-              name="tituloDoAnuncio"
-              placeholder="Título do seu anúncio"
-              value={form.tituloDoAnuncio}
-              onChange={handleChange}
-              className={styles.inputForm}
-              required
-            />
-            <textarea
-              name="descricaoMetodologia"
-              placeholder="Descrição da metodologia"
-              value={form.descricaoMetodologia}
-              onChange={handleChange}
-              className={styles.textarea}
-              required
-            />
-            <div className={styles.inlineInputs}>
-              <input
-                type="number"
-                name="precoHora"
-                placeholder="Preço Hora / Aula"
-                value={form.precoHora}
-                onChange={handleChange}
-                className={`${styles.inputForm} ${styles.inputPrecoHora}`}
-                required
-              />
-              <div className={styles.checkboxCustom}>
-                <input
-                  type="checkbox"
-                  name="aulaGratuita"
-                  checked={form.aulaGratuita}
-                  onChange={handleChange}
-                  className={styles.inputForm}
-                />
-                <p>Oferecer primeira aula gratuita?</p>
-              </div>
-            </div>
-          </>
-        )}
+        <div className={styles.passwordWrapper}>
+          <input
+            type={showSenha ? 'text' : 'password'}
+            name="confirmarSenha"
+            placeholder="Confirmar Senha"
+            value={form.confirmarSenha}
+            onChange={handleChange}
+            className={styles.inputForm}
+            required
+          />
+        </div>
+        {error && <p className={styles.errorMessage}>{error}</p>}
+        {success && <p className={styles.successMessage}>{success}</p>}
         <button type="submit" className={styles.submitButton}>
           Enviar
         </button>
@@ -218,5 +151,4 @@ export default function CadastroCoaching() {
     </div>
   );
 }
-
 

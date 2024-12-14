@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import bannerImage from '../../assets/banner.png';
-import CatDefault from '../../assets/coaching.jpg';
-// import LoginModal from '../../components/Login/loginModal';
-import { supabase } from '../../supabaseClient'; 
+import bannerImageServices from '../../assets/banner-principal-servicos.webp';
+import bannerImage from '../../assets/banner-principal.webp';
+import { FaCheck } from "react-icons/fa";
+import CoachingCard from '../../components/CoachingCard/CoachingCard';
+import { supabase } from '../../supabaseClient';
 import styles from './Home.module.css';
 
 interface Coaching {
@@ -19,7 +20,6 @@ interface Coaching {
 }
 
 export default function Home() {
-  // const [showModal, setShowModal] = useState<boolean>(false);
   const [coachings, setCoachings] = useState<Coaching[]>([]);
   const navigate = useNavigate(); 
 
@@ -44,29 +44,36 @@ export default function Home() {
 
   useEffect(() => {
     const fetchCoachings = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('announcements')
-          .select('id, title, description, price, main_role, secondary_role, user_id, image_url')
-          .eq('status', 'ativo')
-          .limit(8); 
-
-        if (error) {
-          console.error('Erro ao buscar coachings:', error.message);
-          return;
-        }
-
-        const coachingsWithDetails = data.map((coaching: any) => ({
-          ...coaching,
-          username: 'Usuário', 
-          image_url: coaching.image_url || CatDefault 
-        }));
-
-        setCoachings(coachingsWithDetails);
-      } catch (err) {
-        console.error('Erro ao buscar coachings:', err);
+      const { data, error } = await supabase
+        .from('announcements')
+        .select(`
+          id,
+          title,
+          description,
+          price,
+          main_role,
+          secondary_role,
+          first_class_free,
+          users:fk_user_id (username, profile_image_url)
+        `)
+        .eq('status', 'ativo')
+        .order('score', { ascending: false })
+        .limit(8);
+    
+      if (error) {
+        console.error('Erro ao buscar coachings:', error.message);
+        return;
       }
+    
+      const coachingsWithDetails = data.map((coaching: any) => ({
+        ...coaching,
+        username: coaching.users?.username || 'Desconhecido',
+        profile_image_url: coaching.users?.profile_image_url || null,
+      }));
+    
+      setCoachings(coachingsWithDetails);
     };
+    
 
     fetchCoachings();
   }, []); 
@@ -90,21 +97,19 @@ export default function Home() {
             Cadastre-se
           </button>
         </div>
-        <img src={bannerImage} alt="Banner principal" />
-        
+        <img className={styles.bannerImage} src={bannerImage} alt="Banner principal" />
       </section>
-
-      {/* {showModal && <LoginModal onClose={() => setShowModal(false)} />} */}
 
       <section className={styles.services}>
         <div className={styles.servicesInner}>
-          <img src={bannerImage} alt="" />
+          <img className={styles.servicesImage} src={bannerImageServices} alt="Serviços" />
           <div className={styles.servicesText}>
-            <p className={styles.servicesTitle}>Nosso objetivo é formar um ecossistema completo de diversão, aprendizagem e interação com a comunidade de League of Legends.</p>
+            <p className={styles.servicesTitle}>Nosso objetivo é formar um ecossistema completo de diversão, aprendizagem e interação com a comunidade.</p>
+            
             <p className={styles.servicesSubtitle}>O nexusGG é para você que quer:</p>
-            <p className={styles.servicesSubtitle}>Contratar um coaching</p>
-            <p className={styles.servicesSubtitle}>Ler guias e artigos para aprender cada vez mais</p>
-            <p className={styles.servicesSubtitle}>Interagir com a comunidade através dos fóruns e workshops</p>
+            <p className={styles.servicesSubtitle}><FaCheck /> Contratar um coaching</p>
+            <p className={styles.servicesSubtitle}><FaCheck /> Ler guias e artigos para aprender cada vez mais</p>
+            <p className={styles.servicesSubtitle}><FaCheck /> Interagir com a comunidade através dos fóruns e workshops</p>
           </div>
         </div> 
       </section>
@@ -112,35 +117,28 @@ export default function Home() {
       <section className={styles.gridCoachings}>
         <h1 className={styles.gridTitle}>Encontre o coaching perfeito!</h1>
         <div className={styles.gridCards}>
-          {coachings.map((coaching, index) => (
-            <div key={index} className={styles.card}>
-              <img width={200} src={coaching.image_url || CatDefault} alt={coaching.title} />
-              <div className={styles.cardText}>
-                <h2 className={styles.cardTitle}>{coaching.title}</h2>
-                <p className={styles.cardSubtitle}>{coaching.description}</p>
-                <p className={styles.cardPrice}>R$ {coaching.price.toFixed(2)}/hora</p>
-              </div>  
-            </div>
-          ))}
+        
+        {coachings.map((coaching) => (
+          <CoachingCard
+            key={coaching.id}
+            title={coaching.title}
+            description={coaching.description}
+            price={coaching.price}
+            image_url={coaching.profile_image_url}
+            mainRole={coaching.main_role}
+            secondaryRole={coaching.secondary_role}
+            username={coaching.username}
+            rating={coaching.averageRating}
+            ratingCount={coaching.ratingCount}
+          />
+        
+        ))}
         </div>
         <button className={styles.button} onClick={handleViewMore}>Ver Mais</button>
-      </section>
-
-      <section>
-        <div className={styles.articleList}>
-          <h1 className={styles.articleListTitle}>Os melhores artigos e guias para você aprimorar sua gameplay</h1>
-          {articles.map((article, index) => (
-            <div key={index} className={styles.article}>
-              <h2 className={styles.title}>{article.title}</h2>
-              <p className={styles.description}>{article.description}</p>
-            </div>
-          ))}
-        </div>
       </section>
     </main>
   );
 }
-
 
 
 
