@@ -1,13 +1,12 @@
 <h1 align="center"> 
 	PathToNexus 🚀
-  https://pathtonexus.netlify.app
 </h1>
 
 
 ## 💻 Sobre o projeto
 
-PathToNexus - Projeto que conecta coachings de League of Legends a usuarios que desejam aprimorar suas habilidades.
-
+PathToNexus - Projeto que conecta coachings de League of Legends a usuarios que desejam aprimorar suas habilidades. 
+https://pathtonexus.netlify.app
 
 ## 🎨 Layout
 
@@ -44,7 +43,7 @@ O layout da aplicação está disponível no Figma:
 ---
 
 ## ⚙️ Login (para testar a aplicação)
-Login: teste-coach@teste.com
+Login: teste-coach@teste.com 
 Senha: teste123
 
 
