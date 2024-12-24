@@ -1,50 +1,58 @@
-# React + TypeScript + Vite
+<h1 align="center"> 
+	PathToNexus 🚀
+  https://pathtonexus.netlify.app
+</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## 💻 Sobre o projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+PathToNexus - Projeto que conecta coachings de League of Legends a usuarios que desejam aprimorar suas habilidades.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🎨 Layout
 
-- Configure the top-level `parserOptions` property like this:
+O layout da aplicação está disponível no Figma:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+<a href="[https://www.figma.com/design/Vkgr6COm5LlZeKq7B9kjQY/ToDo-List-(Copy)?node-id=0-1&t=R1ZY9iqQxJt9G2mb-0](https://www.figma.com/design/v5nSjs5USrDiu0OEjGOmZ9/Coaching-LOL---Ideias-template?node-id=38-2&p=f&t=Yy45xUjIgQtm9qGf-0)">
+  <img alt="Protótipo de tela feito pelo Figma" src="https://img.shields.io/badge/Acessar%20Layout%20-Figma-%2304D361"><img>
+</a>
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 💻 Tecnologias utilizadas 
+
+- React.
+- Javascript.
+- Typescript.
+- CSS Modules.
+- Supabase
+
+---
+
+
+## ⚙️ Funcionalidades
+
+- [x] Criação de conta (Aluno ou Coach) 
+- [x] Autenticação de usuários (com confirmação de conta)
+- [x] Grid de Cards com opções de Coaching disponíveis
+- [x] Perfil personalizado de acordo com o tipo de acesso (coach ou aluno)
+- [x] Upload de imagem de perfil
+- [x] Criação de todas as tabelas pertinentes no Banco de Dados
+- [x] Criação de artigos para usuários que são coach e listagem de artigos para usuarios alunos.
+
+---
+
+## ⚙️ Login (para testar a aplicação)
+Login: teste-coach@teste.com
+Senha: teste123
+
+
+## 📝 Licença
+
+Este projeto esta sobe a licença [MIT](./LICENSE).
+
+Feito por Jessica Monique (pode chamar de Monique 👋🏽) | 
+[Linkedin](https://www.linkedin.com/in/jmoniquemelo/)
+
+---
